@@ -1,42 +1,37 @@
-color = "red"; 
+prediction1 = ""
+prediction2 = ""
 
-ctx.beginPath();
-ctx.strokeStyle = color;
-ctx.lineWidth = 2;
-ctx.arc(200, 200, 40 ,0 , 2*Math.PI);
-ctx.stroke();
+Webcam.set({
+    width:350,
+    height:300,
+    imageFormat : 'png',
+    pngQuality:90
+  });
 
-canvas.addEventListener("mousedown", myMousedown);
+camera = document.getElementById("camera");
 
+Webcam.attach('#camera');
 
-
-
-
-function myMousedown(e)
+      
+function takeSnapshot()
 {
-    
-    color = document.getElementById("color").value;
-    console.log(color);
-    
-    
-     mouseX = e.clientX - canvas.offsetLeft;
-     mouseY = e.clientY - canvas.offsetTop;
-
-    console.log("X = " + mouseX + " ,Y =  " + mouseY);
-    circle(mouseX , mouseY);    
+    Webcam.snap(function(data_uri) {
+        document.getElementById("result").innerHTML = '<img id="captured_image" src="'+data_uri+'"/>';
+    });
 }
 
+  console.log('ml5 version:', ml5.version);
+  
+classifier = ml5.imageClassifier('https://teachablemachine.withgoogle.com/models/J2Ip11PDF/model.json',modelLoaded);
 
-
-
-
-
-function circle(mouseX , mouseY)
-{
-ctx.beginPath();
-ctx.strokeStyle = color;
-ctx.lineWidth = 2;
-ctx.arc(mouseX ,mouseY, 40 ,0 , 2*Math.PI);
-ctx.stroke();
+  function modelLoaded() {
+    console.log('Model Loaded!');
+  }
+  
+function speak(){
+  var synth = window.speechSynthesis;
+  speakData1 = "A primeira previsão é " + prediction1;
+  speakData2 = "E a segunda previsão é " + prediction2;
+  var utterThis = new SpeechSynthesisUtterance(speakData1 + speakData2);
+  synth.speak(utterThis);
 }
-
