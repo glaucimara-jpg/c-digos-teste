@@ -1,44 +1,21 @@
+noseX=0;
+noseY=0;
 
-  Webcam.set({
-    width:350,
-    height:300,
-    image_format : 'png',
-    png_quality:90
-  });
-
-  camera = document.getElementById("camera");
-
-Webcam.attach( '#camera' );
-
-      
-function takeSnapshot()
-{
-    Webcam.snap(function(data_uri) {
-        document.getElementById("result").innerHTML = '<img id="captured_image" src="'+data_uri+'"/>';
-    });
+function preload() {
+  clownNose = loadImage('https://i.postimg.cc/7ZBcjDqp/clownnose.png');
 }
 
-  console.log('ml5 version:', ml5.version);
-  
-classifier = ml5.imageClassifier('https://teachablemachine.withgoogle.com/models/dhqOhdXJD/model.json',modelLoaded);
+function setup() {
+  canvas = createCanvas(300, 300);
+  canvas.center();
+  video = createCapture(VIDEO);
+  video.size(300, 300);
+  video.hide();
 
-  function modelLoaded() {
-    console.log('Model Loaded!');
-  }
-      
-  function check()
-  {
-    img = document.getElementById('captured_image');
-    classifier.classify(img, gotResult);
-  }
+  poseNet = ml5.poseNet(video, modelLoaded);
+  poseNet.on('pose', gotPoses);
+}
 
-
-function gotResult(error, results) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log(results);
-    document.getElementById("resultObjectName").innerHTML = results[0].label;
-    document.getElementById("resultObjectAccuracy").innerHTML = results[0].confidence.toFixed(3);
-  }
+function modelLoaded() {
+  console.log('PoseNet foi inicializado');
 }
