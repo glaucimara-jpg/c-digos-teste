@@ -1,90 +1,22 @@
-roverX = 10;
-roverY = 10;
-
-function add() {
-	backgroundImgTag = new Image(); //definindo uma variável com uma nova imagem
-	backgroundImgTag.onload = uploadBackground; // definindo uma função, ao carregar esta variável
-	backgroundImgTag.src = backgroundImage;   // carregando a imagem
-
-	roverImgTag = new Image(); //definindo uma variável com uma nova imagem
-	roverImgTag.onload = uploadRover; // definindo uma função, ao carregar esta variável
-	roverImgTag.src = roverImage;   // carregando a imagem
-
-function uploadBackground() {
-	ctx.drawImage(backgroundImgTag, 0, 0, canvas.width, canvas.height);
+function modelLoaded() {
+  console.log('PoseNet foi inicializado');
 }
 
-function uploadRover() {
-	ctx.drawImage(roverImgTag, roverX, roverY, roverWidth, roverHeight);
-}
-
-
-window.addEventListener("keydown", myKeyDown);
-
-function myKeyDown(e)
+function gotPoses(results)
 {
-	keyPressed = e.keyCode;
-	console.log(keyPressed);
-		if(keyPressed == '38')
-		{
-			up();
-			console.log("up");
-		}
-		if(keyPressed == '40')
-		{
-			down();
-			console.log("down");
-		}
-		if(keyPressed == '37')
-		{
-			left();
-			console.log("left");
-		}
-		if(keyPressed == '39')
-		{
-			right();
-			console.log("right");
-		}
+  if(results.length > 0)
+  {
+    console.log(results);
+    noseX = results[0].pose.nose.x-15;
+    noseY = results[0].pose.nose.y-15;
+  }
 }
 
-function up()
-{
-	if(roverY >=0)
-	{
-		roverY = roverY - 10;
-		console.log("Quando a seta para cima é pressionada,  x = " + roverX + " | y = " +roverY);
-		 uploadBackground();
-		 uploadRover();
-	}
+function draw() {
+  image(video, 0, 0, 300, 300);
+  image(clownNose, noseX, noseY, 30, 30);
 }
-function down()
-{
-	if(roverY <=500)
-	{
-		roverY =roverY+ 10;
-		console.log("Quando a seta para baixo é pressionada,  x = " + roverX + " | y = " +roverY);
-		uploadBackground();
-		uploadRover();
-	}
-}
-function left()
-{
-	if(roverX >= 0)
-	{
-		roverX =roverX - 10;
-		console.log("Quando a seta para esquerda é pressionada,  x = " + roverX + " | y = " +roverY);
-		uploadBackground();
-		 uploadRover();
-	}
-}
-function right()
-{
-	if(roverX <= 700)
-	{
-		roverX =roverX + 10;
-		console.log("Quando a seta para direita é pressionada,  x = " + roverX + " | y = " +roverY);
-		uploadBackground();
-		uploadRover();
-   }
-}
+
+function takeSnapshot(){    
+  save('myFilterImage.png');
 }
