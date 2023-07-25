@@ -1,28 +1,31 @@
- if(results[0].label == "feliz")
-    {
-	    document.getElementById("updateEmoji").innerHTML = "&#128522;";
-    }
-    if(results[0].label == "triste")
-    {
-	    document.getElementById("updateEmoji").innerHTML = "&#128532;";
-    }
-    if(results[0].label == "irritado")
-    {
-	    document.getElementById("updateEmoji").innerHTML = "&#128548;";
-    }
+function preload() {
 
-    if(results[1].label == "feliz")
-    {
-	    document.getElementById("updateEmoji2").innerHTML = "&#128522;";
-    }
-    if(results[1].label == "triste")
-    {
-	    document.getElementById("updateEmoji2").innerHTML = "&#128532;";
-    }
-    if(results[1].label == "irritado")
-    {
-	    document.getElementById("updateEmoji2").innerHTML = "&#128548;";
-    }
-  }
+
 }
 
+function setup() {
+    canvas= createCanvas(640,480);
+    canvas.position(110,250);
+    video=createCapture(VIDEO);
+    video.hide();
+
+    tintColor="";
+}
+
+
+function draw (){
+
+    image(video,0,0,640,480);
+    tint(tintColor);
+}
+
+
+function takeSnapshot () {
+    save('studentName.png');
+}
+
+
+function filterTint() {
+
+    tintColor= document.getElementById("color").value;
+}
