@@ -10,4 +10,31 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.js"></script>
 
+  <style type="text/css">
+  h3
+  {
+    font-size: 25px !important;
+  }
+  canvas {
+  	border:1px solid black;
+  }
+  </style>
+</head>
+
+<body>
+<div class="container">
+	<h3 class="btn btn-primary">Introdução à p5.js</h3>
+	<hr>
+  <label>Cor do filtro:</label>
+  <input id="color" placeholder="Digite a cor do filtror">
+  <br><br>
+  <button onclick="filterTint()" class="btn btn-warning">Aplicar filtro</button>
+  <br><br>
+  <button onclick="takeSnapshot()" class="btn btn-success">Tirar foto</button>
+</div>
+
+<script src="main.js"></script>
+</body>
+
+</html>
   
