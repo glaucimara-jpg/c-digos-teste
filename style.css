@@ -1,36 +1,41 @@
 body
 {
-	background: lightblue;
+  color: white;
+  background: #c0d3ff;
 }
-
-	.login_div1 , .login_div2
-	{
-		background: white;
-		padding: 10px;
-		float: none;
-		border-radius: 15px;
-	}
-
-
-#player1Name , #player2Name
+span
 {
-	display: inline-block;
-	margin-left: 20px;
+  font-size: 30px;
 }
-#word
+#camera , #result
 {
-	width: 60%;
+  border: 2px dashed black;
+  width: 350px;
+  height: 300px; 
 }
-#wordDisplay
+#resultEmotionName ,#resultEmotionName2  
 {
-	letter-spacing: 5px;
+  color: black;
 }
-#output
+.emotionName
 {
-background: white;
-border-radius: 10px;
-border-top: 10px solid #AA4465;
-padding: 10px;
-float: none;
-text-align: left;
+  font-size: 40px;
+}
+.emoji
+{
+  font-size:48px;
+}
+.heading
+{
+  font-size: 18px;
+  border-radius: 10px;
+  letter-spacing: 10px;
+}
+label
+{
+    font-size: 14px;
+  color: #62b33a;
+  padding: 6px;
+  border-radius: 10px;
+  background-color: white;
 }
