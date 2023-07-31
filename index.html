@@ -1,27 +1,38 @@
+<!DOCTYPE html>
 <html>
-
 <head>
-  <title>Aplicativo de Filtro em Tempo Real usando a Rede Neural PoseNet</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<title>Adivinhe a Palavra</title>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.js"></script>
-  <script src="https://unpkg.com/ml5@0.4.3/dist/ml5.min.js"></script>
-
-  <link rel="stylesheet" type="text/css" href="style.css">
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="game.css">
 </head>
+<body>
 
-<body background="background.jpg">
-<center>
-  <h3 class="btn btn-info">Filtro em Tempo Real</h3>
-  <hr>
-  <button onclick="takeSnapshot()" class="btn btn-success">Tirar Foto</button>
-</center>
+<h4 id="player1Name"></h4> <span id="player1Score"></span>
+<br>
+<h4 id="player2Name"></h4> <span id="player2Score"></span>
 
-<script src="main.js"></script>
+<div class="container">
+	<center>
+		<h2 style="color: white;">Adivinhe a Palavra!</h2>
+		<h3 id="playerQuestion"></h3>
+		<h3 id="playerAnswer"></h3>
+		<div id="output" class="col-lg-6"> </div>
+		<br>
+		<br>
+		<label>Envie sua palavra: <b style="color: red">Utilize uma palavra com 5 ou mais letras.
+		</b>
+		</label>
+		<input type="text" id="word" class="form-control" placeholder="Palavra">
+		<br>
+		<button onclick="send()" class="btn btn-success" style="width: 30%;">Enviar</button>
+	</center>
+</div>
+
+<script src="game_page.js"></script>
 </body>
-
 </html>
+
