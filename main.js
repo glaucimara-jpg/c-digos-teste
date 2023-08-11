@@ -1,50 +1,75 @@
+var SpeechRecognition = window.webkitSpeechRecognition;
+  
+var recognition = new SpeechRecognition();
 
-function setup() {
-  canvas = createCanvas(280, 280);
-  canvas.center();
-  background("white");
-  canvas.mouseReleased(classifyCanvas);
-  synth = window.speechSynthesis;
+var Textbox = document.getElementById("textbox"); 
+
+function start()
+{
+    Textbox.innerHTML = ""; 
+    recognition.start();
+} 
+ 
+recognition.onresult = function(event) {
+
+ console.log(event); 
+
+var Content = event.results[0][0].transcript;
+
+    Textbox.innerHTML = Content;
+    console.log(Content);
+      if(Content =="tire minha selfie")
+      {
+        console.log("tirando selfie --- ");
+        speak();
+      }
 }
 
-function preload() {
+
+function speak(){
+    var synth = window.speechSynthesis;
+
+    speakData = "Tirando sua selfie em 5 segundos";
+
+    var utterThis = new SpeechSynthesisUtterance(speakData);
+
+    synth.speak(utterThis);
+
+    Webcam.attach(camera);
+
+    setTimeout(function()
+    { 
+        takeSelfie(); 
+        save();
+    }
+    , 5000);
+}
+
+ 
+camera = document.getElementById("camera");
+Webcam.set({
+    width:360,
+    height:250,
+    image_format : 'jpeg',
+    jpeg_quality:90
+});
 
 
-  classifier = ml5.imageClassifier('DoodleNet');
+
+
+function takeSelfie()
+{
+    Webcam.snap(function(data_uri) {
+        document.getElementById("result").innerHTML = '<img id="selfieImage" src="'+data_uri+'"/>';
+    });
 }
 
 
-
-function clearCanvas() {
-
-  background("white");
+function save()
+{
+  link = document.getElementById("link");
+  image = document.getElementById("selfieImage").src ;
+  link.href = image;
+  link.click();
 }
 
-function draw() {
-
-  // Set stroke weight to 13
-  strokeWeight(13);
-  // Set stroke color to black
-  stroke(0);
-  // If mouse is pressed, draw line between previous and current mouse positions
-  if (mouseIsPressed) {
-    line(pmouseX, pmouseY, mouseX, mouseY);
-  }
-}
-
-function classifyCanvas() {
-  classifier.classify(canvas, gotResult);
-}
-
-function gotResult(error, results) {
-  if (error) {
-    console.error(error);
-  }
-  console.log(results);
-  document.getElementById('label').innerHTML = 'Label: ' + results[0].label;
-
-  document.getElementById('confidence').innerHTML = 'Confidence: ' + Math.round(results[0].confidence * 100) + '%';
-
-  utterThis = new SpeechSynthesisUtterance(results[0].label);
-  synth.speak(utterThis);
-}
