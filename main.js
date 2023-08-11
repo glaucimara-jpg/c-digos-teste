@@ -1,46 +1,50 @@
-noseX=0;
-noseY=0;
-difference = 0;
-rightWristX = 0;
-leftWristX = 0;
 
-  function setup() {
-  video = createCapture(VIDEO);
-  video.size(550, 500);
-
-  canvas = createCanvas(550, 550);
-  canvas.position(560,150);
-
-  poseNet = ml5.poseNet(video, modelLoaded);
-  poseNet.on('pose', gotPoses);
+function setup() {
+  canvas = createCanvas(280, 280);
+  canvas.center();
+  background("white");
+  canvas.mouseReleased(classifyCanvas);
+  synth = window.speechSynthesis;
 }
 
-function modelLoaded() {
-  console.log('PoseNet Is Initialized!');
+function preload() {
+
+
+  classifier = ml5.imageClassifier('DoodleNet');
 }
 
 
-function gotPoses(results)
-{
-  if(results.length > 0)
-  {
-    console.log(results);
-    noseX = results[0].pose.nose.x;
-    noseY = results[0].pose.nose.y;
-    console.log("noseX = " + noseX +" noseY = " + noseY);
 
-    leftWristX = results[0].pose.leftWrist.x;
-    rightWristX = results[0].pose.rightWrist.x;
-    difference = floor(leftWristX - rightWristX);
+function clearCanvas() {
 
-    console.log("leftWristX  = " + leftWristX  + " rightWristX = "+ rightWristX + " difference = " + difference);
-  }
+  background("white");
 }
 
 function draw() {
-background('#969A97');
 
-  document.getElementById("square_side").innerHTML = "Largura e altura serão = " + difference +"px";
-  fill('#F90093');
-  stroke('#F90093');
-  square(noseX, noseY, difference);
+  // Set stroke weight to 13
+  strokeWeight(13);
+  // Set stroke color to black
+  stroke(0);
+  // If mouse is pressed, draw line between previous and current mouse positions
+  if (mouseIsPressed) {
+    line(pmouseX, pmouseY, mouseX, mouseY);
+  }
+}
+
+function classifyCanvas() {
+  classifier.classify(canvas, gotResult);
+}
+
+function gotResult(error, results) {
+  if (error) {
+    console.error(error);
+  }
+  console.log(results);
+  document.getElementById('label').innerHTML = 'Label: ' + results[0].label;
+
+  document.getElementById('confidence').innerHTML = 'Confidence: ' + Math.round(results[0].confidence * 100) + '%';
+
+  utterThis = new SpeechSynthesisUtterance(results[0].label);
+  synth.speak(utterThis);
+}
