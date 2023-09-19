@@ -1,49 +1,33 @@
-<!DOCTYPE html>
-<html lang="pt">
-
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>jogos</title>
-    <link rel="stylesheet" href="style(4).css">
-    <script src="main.js"></script>
+
+	<title>Detecção de Objetos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.0.0/lib/addons/p5.sound.min.js"></script>
+  <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+  
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
-    <body>
- <center style="background-color: black;">
+<body background="background.jpg">
+<center>
+  <h1 class="btn btn-warning heading">IA DE MONITORAMENTO DE BEBÊS 
+    <br>
+    <span style="color:black;font-size: 13px;">Se uma pessoa não for detectada, um alarme será acionado</span>
+  </h1>
 
+  <h3 id="status" class="btn btn-danger"></h3>
+  <h3 id="numberOfObjects" class="btn btn-warning"></h3>
+  <button onclick="start()" class="btn btn-danger" id="startModel">Iniciar</button>
+</center>
 
+<script src="main.js"></script>
 
-    <section id="app">
-        <h1 id="app" style="color: aliceblue;">Apps</h1>
-        <div class="line"></div>
-        
-        <iframe width="392" height="620" style="border: 0px;" 
-        src="https://studio.code.org/projects/applab/3r0gw5TKlL0ZRKyoSGPVHciX5byjvsXPhYh90W7u_ss/embed?nosource"></iframe>
-    </section>
-        
-
-
-
-
-
-
-
-    <section id="game">
-        <h1 style="color: aliceblue;">Jogos</h1>
-        <div class="line"></div>
-            <a href="https://studio.code.org/projects/gamelab/S2q69TVl6TK_3f61F5gLZZjaFjbeAdXSBTe5KTSP6-o"
-                target="_blank">
-                <img src="game1.png">
-            </a>
-            <a href="https://studio.code.org/projects/gamelab/WADur3zjeAChQjB0xWcYHH035raSI0KARD5zaZypMzI"
-                target="_blank">
-                <img src="game2.png">
-            </a>
-    </section>
-
- </center>
 </body>
+
 </html>
-</html>
-     
